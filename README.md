@@ -47,4 +47,4 @@ ledger.settlement();
 - Even splits and a settlement list.
 - Separate books per currency. INR and USD are never netted together.
 
-An even split currently drops leftover minor units. `100` shared by three people is recorded as `33 + 33 + 33`.
+An even split keeps every share in whole minor units. Leftover units go to the earliest participants, one each. `100` shared by three people is `34 + 33 + 33`, and the participant list order decides who receives the extra unit.

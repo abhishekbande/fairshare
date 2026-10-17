@@ -35,6 +35,30 @@ describe("Ledger", () => {
     ]);
   });
 
+  it("keeps a one-unit remainder inside the group", () => {
+    const ledger = weekendLedger();
+    ledger.addExpense({
+      id: "snacks",
+      description: "Snacks",
+      payerId: "asha",
+      amountMinor: 100,
+      currency: "INR",
+      participantIds: ["asha", "ben", "chi"],
+      createdAt: "2026-10-11",
+    });
+
+    const balances = ledger.balances();
+    const net = balances.reduce((sum, balance) => sum + balance.minor, 0);
+    assert.equal(net, 0);
+    assert.deepEqual(balances, [
+      { participantId: "asha", currency: "INR", minor: 66 },
+      { participantId: "ben", currency: "INR", minor: -33 },
+      { participantId: "chi", currency: "INR", minor: -33 },
+    ]);
+    const settled = ledger.settlement().reduce((sum, transfer) => sum + transfer.amountMinor, 0);
+    assert.equal(settled, 66);
+  });
+
   it("keeps currencies separate", () => {
     const ledger = weekendLedger();
     ledger.addExpense({
