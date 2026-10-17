@@ -1,0 +1,19 @@
+{
+  "participants": [
+    { "id": "asha", "name": "Asha" },
+    { "id": "ben", "name": "Ben" },
+    { "id": "chi", "name": "Chi" }
+  ],
+  "expenses": [
+    {
+      "id": "dinner",
+      "description": "Dinner",
+      "payerId": "asha",
+      "amountMinor": 9000,
+      "currency": "INR",
+      "participantIds": ["asha", "ben", "chi"],
+      "createdAt": "2026-10-11",
+      "category": "Food"
+    }
+  ]
+}

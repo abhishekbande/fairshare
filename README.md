@@ -46,5 +46,15 @@ ledger.settlement();
 - Participants and expenses, with validation for ids, dates, currencies, and duplicate rows.
 - Even splits and a settlement list.
 - Separate books per currency. INR and USD are never netted together.
+- A small command line that prints balances or the settlement list from a JSON file.
 
 An even split currently drops leftover minor units. `100` shared by three people is recorded as `33 + 33 + 33`.
+
+## Command line
+
+```bash
+npx fairshare balances examples/weekend.json
+npx fairshare settle examples/weekend.json
+```
+
+The JSON file has `participants` and `expenses`. Amounts in the output are minor units, with a leading `+` when the group owes that person.
