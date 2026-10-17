@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "Shared-expense ledger: who paid, how a bill is split, and which transfers settle the group.",
   "type": "module",
+  "bin": {
+    "fairshare": "bin/fairshare.js"
+  },
   "engines": {
     "node": ">=20"
   },
