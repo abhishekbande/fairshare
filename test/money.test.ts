@@ -16,6 +16,22 @@ describe("splitEvenly", () => {
     assert.deepEqual(splitEvenly(0, 3), [0, 0, 0]);
   });
 
+  it("gives leftover minor units to the earliest shares", () => {
+    assert.deepEqual(splitEvenly(100, 3), [34, 33, 33]);
+    assert.deepEqual(splitEvenly(2, 5), [1, 1, 0, 0, 0]);
+  });
+
+  it("keeps every share within one unit and preserves the total", () => {
+    for (let amount = 0; amount <= 40; amount += 1) {
+      for (let parts = 1; parts <= 9; parts += 1) {
+        const shares = splitEvenly(amount, parts);
+        const total = shares.reduce((sum, share) => sum + share, 0);
+        assert.equal(total, amount);
+        assert.ok(Math.max(...shares) - Math.min(...shares) <= 1);
+      }
+    }
+  });
+
   it("rejects a negative amount", () => {
     assert.throws(() => splitEvenly(-1, 2), LedgerError);
   });

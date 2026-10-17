@@ -21,14 +21,16 @@ export function assertMinorAmount(amountMinor: number): number {
 /**
  * Divide a minor-unit amount across `parts` people.
  *
- * This keeps every share an integer, but it drops the leftover units.
- * 100 split three ways becomes 33 + 33 + 33, and 1 unit disappears.
+ * Shares stay integers and sum back to `amountMinor`. Leftover units are handed
+ * out one at a time from the start of the list, so 100 split three ways is
+ * 34, 33, 33. The expense's participant order decides who receives an extra unit.
  */
 export function splitEvenly(amountMinor: number, parts: number): number[] {
   assertMinorAmount(amountMinor);
   if (!Number.isInteger(parts) || parts <= 0) {
     throw new LedgerError(`Split count must be a positive integer, received ${parts}.`);
   }
-  const share = Math.floor(amountMinor / parts);
-  return Array.from({ length: parts }, () => share);
+  const base = Math.floor(amountMinor / parts);
+  const remainder = amountMinor - base * parts;
+  return Array.from({ length: parts }, (_, index) => base + (index < remainder ? 1 : 0));
 }
