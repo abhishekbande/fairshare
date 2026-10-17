@@ -1,0 +1,19 @@
+{
+  "name": "fairshare",
+  "version": "0.1.0",
+  "description": "Shared-expense ledger: who paid, how a bill is split, and which transfers settle the group.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "tsx --test test/*.test.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^24.6.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  },
+  "license": "MIT"
+}
