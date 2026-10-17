@@ -46,5 +46,15 @@ ledger.settlement();
 - Participants and expenses, with validation for ids, dates, currencies, and duplicate rows.
 - Even splits and a settlement list.
 - Separate books per currency. INR and USD are never netted together.
+- CSV import and export. `appendCsv` writes every row or none, and cells that spreadsheets treat as formulas are prefixed with `'`.
 
 An even split currently drops leftover minor units. `100` shared by three people is recorded as `33 + 33 + 33`.
+
+## CSV
+
+```csv
+id,description,payerId,amountMinor,currency,participantIds,category,createdAt
+dinner,"Pasta, extra sauce",asha,1000,INR,asha|ben,Food,2026-10-11
+```
+
+Participant ids are separated with `|`. A blank category is allowed. Import reports every broken row by line number and does not stop at the first problem.
