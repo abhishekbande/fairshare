@@ -46,5 +46,20 @@ ledger.settlement();
 - Participants and expenses, with validation for ids, dates, currencies, and duplicate rows.
 - Even splits and a settlement list.
 - Separate books per currency. INR and USD are never netted together.
+- A spending summary over an inclusive date range, grouped by currency, category, and payer.
 
 An even split currently drops leftover minor units. `100` shared by three people is recorded as `33 + 33 + 33`.
+
+## Summary
+
+```ts
+import { summarize } from "./src/index.js";
+
+summarize(ledger.expenses(), {
+  from: "2026-10-01",
+  to: "2026-10-31",
+  currency: "INR",
+});
+```
+
+`from` and `to` are inclusive. Expenses without a category are reported as `uncategorized`. Totals are the amounts that were spent, not the net each person is owed.
